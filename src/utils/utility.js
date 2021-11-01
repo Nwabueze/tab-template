@@ -1,1 +1,0 @@
-const AMOUNT = 2000;
