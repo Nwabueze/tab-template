@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useContext } from 'react';
 import { makeStyles, } from '@mui/styles';
 import { styled, alpha, createTheme, ThemeProvider } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -15,7 +16,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import { AccountCircle } from '@mui/icons-material';
-import { Badge, Stack, ToggleButton } from '@mui/material';
+import { Badge, Button, Stack, ToggleButton, TextField } from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -23,7 +24,7 @@ import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import useStyles from '../utils/style';
 import Cookies from 'js-cookie';
-
+import {Store} from '../utils/Store';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -73,8 +74,15 @@ export default function PermanentDrawerLeft() {
   const [selectedNavButton, setSelectedNavButton] = React.useState("mail");
   //const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   //const darkMode = Cookies.get('darkmode') !== 'undefined' ? true : false;
+  const {state, dispatch} = useContext(Store);
+  const { darkMode } = state;
   const classes = useStyles();
-  const [darkmodeValue, setDarkmode] = React.useState(Cookies.get('darkmode') !== 'undefined');
+  //const [darkmodeValue, setDarkmode] = React.useState(Cookies.get('darkmode') !== 'undefined');
+  
+  const [darkmodeValue, setDarkmode] = React.useState(darkMode);
+  React.useEffect(() => {
+    setDarkmode(darkMode);
+  },[darkMode])
   const theme = createTheme({
         palette: {
           mode: darkmodeValue ? 'dark' : 'light',
@@ -83,6 +91,11 @@ export default function PermanentDrawerLeft() {
   
   const handleNavButtonClick = (item) => {
     setSelectedNavButton(item);
+  }
+
+  const handleDarkmode = () => {
+    const mode = !darkMode;
+    dispatch({ type: mode ? 'DARK_MODE_ON' : 'DARK_MODE_OFF' });
   }
 
   return (
@@ -104,28 +117,32 @@ export default function PermanentDrawerLeft() {
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <Stack direction="row" spacing={2} justifyContent="center" alignItems="center">
             <ToggleButton value="darkmode" selected={selectedNavButton === "darkmode"} 
-              onClick={() => { handleNavButtonClick('darkmode'); setDarkmode(!darkmodeValue); }}>
+              onClick={() => { handleNavButtonClick('darkmode'); handleDarkmode(); }}>
               <Badge badgeContent={0} color="error">
                 { darkmodeValue ? <Brightness7Icon color="primary" /> : <Brightness4Icon color="primary" /> }
               </Badge>
             </ToggleButton>
-            <ToggleButton value="mail" selected={selectedNavButton === "mail"} onClick={() => handleNavButtonClick('mail')}>
+            <ToggleButton value="mail" selected={selectedNavButton === "mail"} 
+              onClick={() => handleNavButtonClick('mail')}>
               <Badge badgeContent={4} color="error">
                 <MailIcon color="primary" />
               </Badge>
             </ToggleButton>
-            <ToggleButton value="notification" selected={selectedNavButton === "notification"} onClick={() => handleNavButtonClick('notification')}>
+            <ToggleButton value="notification" selected={selectedNavButton === "notification"} 
+              onClick={() => handleNavButtonClick('notification')}>
               <Badge badgeContent={17} color="error">
                 <NotificationsIcon color="primary" />
               </Badge>
             </ToggleButton>
-            <ToggleButton value="account" selected={selectedNavButton === "account"} onClick={() => handleNavButtonClick('account')}>
+            <ToggleButton value="account" selected={selectedNavButton === "account"} 
+              onClick={() => handleNavButtonClick('account')}>
               <AccountCircle color="primary" />
             </ToggleButton>
             </Stack>
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-          <ToggleButton value="more" selected={selectedNavButton === "more"} onClick={() => handleNavButtonClick('more')}>
+          <ToggleButton value="more" selected={selectedNavButton === "more"} 
+            onClick={() => handleNavButtonClick('more')}>
               <MoreIcon color="primary" />
             </ToggleButton>
           </Box>
@@ -145,6 +162,12 @@ export default function PermanentDrawerLeft() {
         </List>
         </Box>
         <Box component="main" sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}>
+          <Box>
+             <Button>{ darkMode ? 'Darmode ON' : 'Darkmode OFF' }</Button>
+          </Box>
+          <Box p={5}>
+            <TextField id="outlined-basic" label="Outlined" variant="outlined" />
+          </Box>
         <Typography paragraph className={classes.p2}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
           tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non

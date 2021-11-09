@@ -1,9 +1,12 @@
 import './App.css';
 import PermanentDrawerLeft from './pages/dashboard';
+import { StoreProvider } from './utils/Store';
 
 function App() {
   return (
-    <PermanentDrawerLeft />
+    <StoreProvider>
+      <PermanentDrawerLeft />
+    </StoreProvider>
   );
 }
 

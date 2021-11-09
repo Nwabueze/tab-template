@@ -17,7 +17,10 @@ const useStyles = makeStyles({
     },
     p2: {
         padding: 20,
-    }
+    },
+    p3: {
+        padding: 30,
+    },
 });
 
 export default useStyles;
