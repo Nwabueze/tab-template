@@ -1,30 +1,40 @@
 import * as React from 'react';
 import { useContext } from 'react';
-import { makeStyles, } from '@mui/styles';
+//import { makeStyles, } from '@mui/styles';
 import { styled, alpha, createTheme, ThemeProvider } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
+//import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
+//import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import { AccountCircle } from '@mui/icons-material';
-import { Badge, Button, Stack, ToggleButton, TextField } from '@mui/material';
+import { Badge, Stack, ToggleButton, Divider } from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
-import useStyles from '../utils/style';
-import Cookies from 'js-cookie';
-import {Store} from '../utils/Store';
+import AssistantDirectionIcon from '@mui/icons-material/AssistantDirection';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
+import GridViewIcon from '@mui/icons-material/GridView';
+import MessageIcon from '@mui/icons-material/Message';
+import Paper from '@mui/material/Paper';
+import Avatar from '@mui/material/Avatar';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import { useStyles, } from '../utils/style';
+//import Cookies from 'js-cookie';
+import { Store } from '../utils/Store';
+import f11 from '../img/f11.jpg';
+import avatar1 from "../img/1.PNG";
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -71,121 +81,548 @@ const drawerWidth = 240;
 
 export default function PermanentDrawerLeft() {
 
+  const matches = useMediaQuery('(min-width:700px)');
   const [selectedNavButton, setSelectedNavButton] = React.useState("mail");
-  //const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-  //const darkMode = Cookies.get('darkmode') !== 'undefined' ? true : false;
-  const {state, dispatch} = useContext(Store);
+  const [sideListSelectedIndex, setSideListSelectedIndex] = React.useState(1);
+  const { state, dispatch } = useContext(Store);
   const { darkMode } = state;
   const classes = useStyles();
-  //const [darkmodeValue, setDarkmode] = React.useState(Cookies.get('darkmode') !== 'undefined');
-  
-  const [darkmodeValue, setDarkmode] = React.useState(darkMode);
+  const [darkmodeValue, setDarkmode] = React.useState(false);
   React.useEffect(() => {
     setDarkmode(darkMode);
-  },[darkMode])
+  }, [darkMode])
   const theme = createTheme({
-        palette: {
-          mode: darkmodeValue ? 'dark' : 'light',
-        },
+    palette: {
+      mode: darkmodeValue ? 'light' : 'light',
+    },
   });
-  
-  const handleNavButtonClick = (item) => {
+
+  const handleNavButtonClick = (event, item) => {
     setSelectedNavButton(item);
   }
 
+  const handleSideListItemClick = (event, index) => {
+    setSideListSelectedIndex(index);
+  };
+
   const handleDarkmode = () => {
-    const mode = !darkMode;
+    //const mode = !darkMode;
+    const mode = false;
     dispatch({ type: mode ? 'DARK_MODE_ON' : 'DARK_MODE_OFF' });
   }
 
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Box sx={{ width: "100vw" }}>
-      <AppBar className={ darkmodeValue ? classes.navBarDark : classes.navBarLight } position="fixed" sx={{ width: `100%`,}}>
-        <Toolbar>
-        <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
-          <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <Stack direction="row" spacing={2} justifyContent="center" alignItems="center">
-            <ToggleButton value="darkmode" selected={selectedNavButton === "darkmode"} 
-              onClick={() => { handleNavButtonClick('darkmode'); handleDarkmode(); }}>
-              <Badge badgeContent={0} color="error">
-                { darkmodeValue ? <Brightness7Icon color="primary" /> : <Brightness4Icon color="primary" /> }
-              </Badge>
-            </ToggleButton>
-            <ToggleButton value="mail" selected={selectedNavButton === "mail"} 
-              onClick={() => handleNavButtonClick('mail')}>
-              <Badge badgeContent={4} color="error">
-                <MailIcon color="primary" />
-              </Badge>
-            </ToggleButton>
-            <ToggleButton value="notification" selected={selectedNavButton === "notification"} 
-              onClick={() => handleNavButtonClick('notification')}>
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon color="primary" />
-              </Badge>
-            </ToggleButton>
-            <ToggleButton value="account" selected={selectedNavButton === "account"} 
-              onClick={() => handleNavButtonClick('account')}>
-              <AccountCircle color="primary" />
-            </ToggleButton>
-            </Stack>
+      <Box sx={{ width: "100%" }} className={`${classes.backgroundDefault}`}>
+        <AppBar className={classes.navBarLight} position="fixed" sx={{ width: `100%`, }}>
+          <Toolbar>
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ 'aria-label': 'search' }}
+              />
+            </Search>
+            <Box sx={{ flexGrow: 1 }} />
+            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+              <Stack direction="row" spacing={2} justifyContent="center" alignItems="center">
+                <ToggleButton value="darkmode" selected={selectedNavButton === "darkmode"}
+                  onClick={() => { handleNavButtonClick('darkmode'); handleDarkmode(); }}>
+                  <Badge badgeContent={0} color="error">
+                    {darkmodeValue ? <Brightness7Icon color="primary" /> : <Brightness4Icon color="primary" />}
+                  </Badge>
+                </ToggleButton>
+                <ToggleButton value="mail" selected={selectedNavButton === "mail"}
+                  onClick={() => handleNavButtonClick('mail')}>
+                  <Badge badgeContent={4} color="error">
+                    <MailIcon color="primary" />
+                  </Badge>
+                </ToggleButton>
+                <ToggleButton value="notification" selected={selectedNavButton === "notification"}
+                  onClick={() => handleNavButtonClick('notification')}>
+                  <Badge badgeContent={17} color="error">
+                    <NotificationsIcon color="primary" />
+                  </Badge>
+                </ToggleButton>
+                <ToggleButton value="account" selected={selectedNavButton === "account"}
+                  onClick={() => handleNavButtonClick('account')}>
+                  <AccountCircle color="primary" />
+                </ToggleButton>
+              </Stack>
+            </Box>
+            <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+              <ToggleButton value="more" selected={selectedNavButton === "more"}
+                onClick={() => handleNavButtonClick('more')}>
+                <MoreIcon color="primary" />
+              </ToggleButton>
+            </Box>
+          </Toolbar>
+        </AppBar>
+        <Box style={matches ? { display: 'flex' } : { display: 'block' }} mt={5} pt={5}>
+          <Box className={`${classes.scroller}`}
+            position="fixed" top={60} sx={{ width: drawerWidth }} style={matches ?
+              { overflowY: 'auto', height: `${100}%` } : { display: 'none' }}>
+            <Box pt={3} className={`${classes.backgroundDefault}`} 
+              style={{ width: '100%', minHeight: 'calc(100vh - 40px)' }}>
+              <List>
+                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+                  <React.Fragment>
+                    <ListItem pt={3} pb={3} button key={text}
+                      selected={sideListSelectedIndex === index}
+                      onClick={(event) => handleSideListItemClick(event, index)}
+                      className={ `${classes.rad5} ${classes.centered_90}` }
+                      style={{marginTop: '20px!important'}}
+                    >
+                      <ListItemIcon>
+                        {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                      </ListItemIcon>
+                      <span className={`${classes.font_14}`}>{ text }</span>
+                    </ListItem>
+                  </React.Fragment>
+                ))}
+              </List>
+            </Box>
           </Box>
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-          <ToggleButton value="more" selected={selectedNavButton === "more"} 
-            onClick={() => handleNavButtonClick('more')}>
-              <MoreIcon color="primary" />
-            </ToggleButton>
+          <Box component="main" sx={matches ? {
+            width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px`,
+            position: 'relative', bottom: '20px',
+          } :
+            { width: '100%' }}>
+            <Box style={matches ?
+              { width: '100%', display: 'flex', flexDirection: 'row', flexGrow: 1, flexWrap: 'wrap' }
+              : { dispay: 'block', width: '100%' }}>
+              <Box
+                style={
+                  {
+                    minHeight: '900px', width: matches ?
+                      `calc(50% - 3px)` : '100%',
+                      backgroundColor: 'inherit',
+                  }
+                }>
+                {
+                  '00000000000000000000'.split('').map((item, i) => (
+                    <Paper mt={2} mb={2} className={`${classes.lightBackground}`}>
+                      <Box mt={2} style={{ width: '90%', }} className={classes.centered}>
+                        <Box className={classes.flexBox}>
+                         <Avatar alt="Remy Sharp" src={avatar1} sx={{width: 40, height: 40}}/>
+                          <Box>
+                            <Typography p={1} className={`${classes.font_12}`}>
+                              <AccessTimeIcon className={`${classes.font_15} ${classes.top_3}`} />
+                              {' '}
+                              <span className={`${classes.colorPrimary} ${classes.pointer}`}>
+                                Samuel Nwabueze
+                              </span>
+                              {' '} &middot; {'11:00'} AM
+                            </Typography>
+                          </Box>
+                          <Box className={`${classes.grow}`}></Box>
+                          <Box pr={2}>
+                            <MoreHorizIcon className={`${classes.top_3} ${classes.pointer} ${classes.hovBlue}`} />
+                          </Box>
+                        </Box>
+                      </Box>
+                      <Box className={classes.centered_90}>
+                        <Typography>
+                          Solomon Grundy,
+                          Born on a Monday,
+                          Christened on Tuesday,
+                          Married on Wednesday,
+                          Took ill on Thursday,
+                          Grew worse on Friday,
+                          Died on Saturday,
+                          Buried on Sunday,
+                          That was the end,
+                          Of Solomon Grundy.
+                        </Typography>
+                      </Box>
+                      <Box style={{ width: '100%', height: '300px' }} className={classes.centered}>
+                        <img src={f11} style={{ width: '100%', height: '250px', objectFit: 'cover' }} 
+                          alt={'here is it'} />
+                      </Box>
+                      <Box>
+
+                      </Box>
+                    </Paper>
+                  ))
+                }
+              </Box>
+              <Box
+                style={
+                  {
+                    height: '900px',
+                    position: 'fixed',
+                    right: '0px',
+                    width: matches ?
+                      `calc(50% - 120px)` : '100%',
+                  }
+                }>
+                <Box pl={2} style={{ width: '60%', height: 'calc(100vh - 60px)', }}>
+                  <Box p={1}
+                    className={`${classes.lightBackground}`}
+                    style={{ display: 'flex', flexDirection: 'row', gap: 3, position: 'sticky', }}>
+                    <Box p={1} className={`${classes.liveTab}`}>
+                      <AssistantDirectionIcon className={`${classes.pointer} ${classes.colorAuto}`} />
+                    </Box>
+                    <Box p={1}>
+                      <BusinessCenterIcon className={`${classes.pointer} ${classes.colorDefault}`} />
+                    </Box>
+                    <Box p={1}>
+                      <MessageIcon />
+                    </Box>
+                    <Box style={{ flexGrow: 1 }} />
+                    <Box p={1}>
+                      <GridViewIcon className={`${classes.pointer} ${classes.colorDefault}`} />
+                    </Box>
+                  </Box>
+                  <Divider />
+                  <Box
+                    className={`${classes.scroller} ${classes.lightBackground}`}
+                    style={{ width: '100%', height: '100%', overflowY: 'auto' }}>
+                    <Box className={classes.centered} style={{ height: 'auto', width: '90%', }}>
+                      <Typography p={2}>
+                        welcome to the real life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                      <Typography p={2}>
+                        welcome to the real the life, we are eager...
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Box>
+              </Box>
+            </Box>
           </Box>
-        </Toolbar>
-      </AppBar>
-      <Box sx={{ display: 'flex' }} mt={5} pt={5}>
-        <Box position="fixed" sx={{ width: drawerWidth }} style={{overflowY: 'scroll', height: `${100}%`}}>
-        <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-        </Box>
-        <Box component="main" sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}>
-          <Box>
-             <Button>{ darkMode ? 'Darmode ON' : 'Darkmode OFF' }</Button>
-          </Box>
-          <Box p={5}>
-            <TextField id="outlined-basic" label="Outlined" variant="outlined" />
-          </Box>
-        <Typography paragraph className={classes.p2}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-          enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-          imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-          Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-          Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-          adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-          nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-          leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-          feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-          consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-          sapien faucibus et molestie ac.
-        </Typography>
         </Box>
       </Box>
-    </Box>
     </ThemeProvider>
-    
   );
 }
