@@ -22,6 +22,7 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
+import ExploreIcon from '@mui/icons-material/Explore';
 import AssistantDirectionIcon from '@mui/icons-material/AssistantDirection';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
@@ -98,7 +99,7 @@ export default function PermanentDrawerLeft() {
     },
   });
 
-  const handleNavButtonClick = (event, item) => {
+  const handleNavButtonClick = (item) => {
     setSelectedNavButton(item);
   }
 
@@ -107,12 +108,45 @@ export default function PermanentDrawerLeft() {
   };
 
   const handleDarkmode = () => {
+    // Dark mode functionality has been removed here
     //const mode = !darkMode;
     const mode = false;
     dispatch({ type: mode ? 'DARK_MODE_ON' : 'DARK_MODE_OFF' });
   }
 
   const iconColors = ['orange', 'blue', 'purple', 'red'];
+
+  const navButtons = [
+    {
+      icon: darkmodeValue ? <Brightness7Icon color="primary" /> : <Brightness4Icon color="primary" />,
+      label: 'Darkmode',
+      id: 'darkmode',
+      badgeContent: 0,
+      handler: () => { handleNavButtonClick('darkmode'); handleDarkmode(); },
+    },
+    {
+      icon: <ExploreIcon color="primary" />,
+      label: 'Explore',
+      id: 'explore',
+      badgeContent: 0,
+      handler: () => handleNavButtonClick('explore'),
+    },
+    {
+      icon: <NotificationsIcon color="primary" />,
+      label: 'Notifications',
+      id: 'notifications',
+      badgeContent: 20,
+      handler: () => handleNavButtonClick('notifications'),
+    },
+    {
+      icon: <AccountCircle color="primary" />,
+      label: 'Account',
+      id: 'account',
+      badgeContent: 1,
+      handler: () => handleNavButtonClick('account'),
+    },
+
+  ];
 
   return (
     <ThemeProvider theme={theme}>
@@ -131,28 +165,16 @@ export default function PermanentDrawerLeft() {
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
               <Stack direction="row" spacing={2} justifyContent="center" alignItems="center">
-                <ToggleButton value="darkmode" selected={selectedNavButton === "darkmode"}
-                  onClick={() => { handleNavButtonClick('darkmode'); handleDarkmode(); }}>
-                  <Badge badgeContent={0} color="error">
-                    {darkmodeValue ? <Brightness7Icon color="primary" /> : <Brightness4Icon color="primary" />}
-                  </Badge>
-                </ToggleButton>
-                <ToggleButton value="mail" selected={selectedNavButton === "mail"}
-                  onClick={() => handleNavButtonClick('mail')}>
-                  <Badge badgeContent={4} color="error">
-                    <MailIcon color="primary" />
-                  </Badge>
-                </ToggleButton>
-                <ToggleButton value="notification" selected={selectedNavButton === "notification"}
-                  onClick={() => handleNavButtonClick('notification')}>
-                  <Badge badgeContent={17} color="error">
-                    <NotificationsIcon color="primary" />
-                  </Badge>
-                </ToggleButton>
-                <ToggleButton value="account" selected={selectedNavButton === "account"}
-                  onClick={() => handleNavButtonClick('account')}>
-                  <AccountCircle color="primary" />
-                </ToggleButton>
+              {
+                navButtons.map((item, index) => (
+                  <ToggleButton className={classes.navbtn} value={item.id} selected={selectedNavButton === item.id}
+                    onClick={() => item.handler() }>
+                    <Badge badgeContent={item.badgeContent} color="error">
+                      { item.icon }
+                    </Badge>
+                  </ToggleButton>
+                ))
+              }
               </Stack>
             </Box>
             <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
@@ -220,15 +242,17 @@ export default function PermanentDrawerLeft() {
                     <Paper mt={2} mb={2} className={`${classes.lightBackground}`}>
                       <Box pt={2} mt={2} style={{ width: '90%', }} className={classes.centered}>
                         <Box className={classes.flexBox}>
-                         <Avatar alt="Remy Sharp" src={avatar1} sx={{width: 40, height: 40}}/>
+                         <Avatar alt="Remy Sharp" src={avatar1} sx={{width: 45, height: 45}}/>
                           <Box>
-                            <Typography p={1} className={`${classes.font_12}`}>
-                              <AccessTimeIcon className={`${classes.font_15} ${classes.top_3}`} />
+                            <Typography p={1} className={`${classes.font_15}`}>
                               {' '}
-                              <span className={`${classes.colorPrimary} ${classes.pointer}`}>
+                              <span className={`${classes.colorPrimary} ${classes.pointer} ${classes.font_15}`}>
                                 Samuel Nwabueze
                               </span>
-                              {' '} &middot; {'11:00'} AM
+                              <br />
+
+                              <AccessTimeIcon className={`${classes.font_15} ${classes.top_3}`} />
+                              <span className={`${classes.font_12}`}>{' '} &middot; {'11:00'} AM</span>
                             </Typography>
                           </Box>
                           <Box className={`${classes.grow}`}></Box>
