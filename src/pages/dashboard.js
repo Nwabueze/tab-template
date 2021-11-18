@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useContext } from 'react';
+import { useContext, useState, } from 'react';
 //import { makeStyles, } from '@mui/styles';
 import { styled, alpha, createTheme, ThemeProvider } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -30,7 +30,7 @@ import MessageIcon from '@mui/icons-material/Message';
 import Paper from '@mui/material/Paper';
 import Avatar from '@mui/material/Avatar';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import { useStyles, } from '../utils/style';
+import { useStyles, colors } from '../utils/style';
 //import Cookies from 'js-cookie';
 import { Store } from '../utils/Store';
 import f11 from '../img/f11.jpg';
@@ -88,6 +88,7 @@ export default function PermanentDrawerLeft() {
   const { darkMode } = state;
   const classes = useStyles();
   const [darkmodeValue, setDarkmode] = React.useState(false);
+  const [rightTab, setRightTab] = useState('direction');
   React.useEffect(() => {
     setDarkmode(darkMode);
   }, [darkMode])
@@ -110,6 +111,8 @@ export default function PermanentDrawerLeft() {
     const mode = false;
     dispatch({ type: mode ? 'DARK_MODE_ON' : 'DARK_MODE_OFF' });
   }
+
+  const iconColors = ['orange', 'blue', 'purple', 'red'];
 
   return (
     <ThemeProvider theme={theme}>
@@ -169,14 +172,25 @@ export default function PermanentDrawerLeft() {
               <List>
                 {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
                   <React.Fragment>
-                    <ListItem pt={3} pb={3} button key={text}
+                    <ListItem pt={3} pb={3} button key={index}
                       selected={sideListSelectedIndex === index}
                       onClick={(event) => handleSideListItemClick(event, index)}
                       className={ `${classes.rad5} ${classes.centered_90}` }
-                      style={{marginTop: '20px!important'}}
                     >
                       <ListItemIcon>
-                        {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                        {index % 2 === 0 ? 
+                          <InboxIcon 
+                          style={{
+                            color: colors[iconColors[index]][3]
+                             }}   /> : 
+                          <MailIcon 
+                            style={
+                              {
+                                color: colors[iconColors[index]][2]
+                                }
+                              } 
+                            />
+                          }
                       </ListItemIcon>
                       <span className={`${classes.font_14}`}>{ text }</span>
                     </ListItem>
@@ -204,7 +218,7 @@ export default function PermanentDrawerLeft() {
                 {
                   '00000000000000000000'.split('').map((item, i) => (
                     <Paper mt={2} mb={2} className={`${classes.lightBackground}`}>
-                      <Box mt={2} style={{ width: '90%', }} className={classes.centered}>
+                      <Box pt={2} mt={2} style={{ width: '90%', }} className={classes.centered}>
                         <Box className={classes.flexBox}>
                          <Avatar alt="Remy Sharp" src={avatar1} sx={{width: 40, height: 40}}/>
                           <Box>
@@ -262,18 +276,28 @@ export default function PermanentDrawerLeft() {
                   <Box p={1}
                     className={`${classes.lightBackground}`}
                     style={{ display: 'flex', flexDirection: 'row', gap: 3, position: 'sticky', }}>
-                    <Box p={1} className={`${classes.liveTab}`}>
-                      <AssistantDirectionIcon className={`${classes.pointer} ${classes.colorAuto}`} />
+                      {/** Start the right tab nav menu  boxes*/}
+                    <Box p={1} 
+                      key={0} className={ `${classes.pointer} ${rightTab === 'direction' ? 
+                      classes.liveTab : classes.deadTab} ${classes.rad5}` } 
+                      onClick={e=>setRightTab('direction')}>
+                      <AssistantDirectionIcon />
                     </Box>
-                    <Box p={1}>
-                      <BusinessCenterIcon className={`${classes.pointer} ${classes.colorDefault}`} />
+                    <Box p={1} key={1} className={ `${classes.pointer} ${rightTab === 'bizcenter' ? 
+                      classes.liveTab : classes.deadTab} ${classes.rad5}` } 
+                      onClick={ e => setRightTab('bizcenter')}>
+                      <BusinessCenterIcon />
                     </Box>
-                    <Box p={1}>
+                    <Box p={1} className={`${classes.pointer} ${rightTab === 'message' ? 
+                      classes.liveTab : classes.deadTab } ${classes.rad5}`} 
+                      onClick={ e => setRightTab('message')}>
                       <MessageIcon />
                     </Box>
-                    <Box style={{ flexGrow: 1 }} />
-                    <Box p={1}>
-                      <GridViewIcon className={`${classes.pointer} ${classes.colorDefault}`} />
+                    <Box style={{ flexGrow: 1 }} key={3} />
+                    <Box p={1} key={4} className={`${classes.pointer} ${rightTab === 'gridview' ? 
+                      classes.liveTab : classes.deadTab } ${classes.rad5}`} 
+                      onClick={ e => setRightTab('gridview')}>
+                      <GridViewIcon />
                     </Box>
                   </Box>
                   <Divider />
@@ -306,314 +330,22 @@ export default function PermanentDrawerLeft() {
                         welcome to the real life, we are eager...
                       </Typography>
                       <Typography p={2}>
-                        welcome to the real the life, we are eager...
+                        welcome to the real life, we are eager...
                       </Typography>
                       <Typography p={2}>
-                        welcome to the real the life, we are eager...
+                        welcome to the real life, we are eager...
                       </Typography>
                       <Typography p={2}>
-                        welcome to the real the life, we are eager...
+                        welcome to the real life, we are eager...
                       </Typography>
                       <Typography p={2}>
-                        welcome to the real the life, we are eager...
-
+                        welcome to the real life, we are eager...
                       </Typography>
                       <Typography p={2}>
-                        welcome to the real the life, we are eager...
+                        welcome to the real life, we are eager...
                       </Typography>
                       <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real the life, we are eager...
+                        welcome to the real life, we are eager...
                       </Typography>
                     </Box>
                   </Box>

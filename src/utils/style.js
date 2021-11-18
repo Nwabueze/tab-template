@@ -60,7 +60,10 @@ const useStyles = makeStyles({
         backgroundColor: colors.white[5],
         '& > *': { color: `${colors.blue[9]}!important`},
     },
-    deadTab: {},
+    deadTab: {
+        backgroundColor: colors.gray[0],
+        '& > *': { color: `${colors.gray[15]}!important`},
+    },
     hovBlue: { 
         '&:hover': { color: 'royalblue', },
     },
@@ -116,4 +119,4 @@ const useStyles = makeStyles({
     centered_90: { width: '90%!important', marginLeft: 'auto!important', marginRight: 'auto!important' },
 });
 
-export { useStyles, };
+export { useStyles, colors, };

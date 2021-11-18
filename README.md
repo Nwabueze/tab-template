@@ -1,3 +1,7 @@
+# Template For Your Web Application
+
+You can start your next project with this template as your starting point
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
