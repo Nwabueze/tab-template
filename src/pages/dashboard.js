@@ -36,6 +36,7 @@ import { useStyles, colors } from '../utils/style';
 import { Store } from '../utils/Store';
 import f11 from '../img/f11.jpg';
 import avatar1 from "../img/1.PNG";
+import Discover from '../components/Discover';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -326,51 +327,10 @@ export default function PermanentDrawerLeft() {
                   </Box>
                   <Divider />
                   <Box
-                    className={`${classes.scroller} ${classes.lightBackground}`}
+                    className={`${classes.scroller} ${classes.backgroundSecondary}`}
                     style={{ width: '100%', height: '100%', overflowY: 'auto' }}>
-                    <Box className={classes.centered} style={{ height: 'auto', width: '90%', }}>
-                      <Typography p={2}>
-                        welcome to the real life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real life, we are eager...
-                      </Typography>
-                      <Typography p={2}>
-                        welcome to the real life, we are eager...
-                      </Typography>
+                    <Box className={`${classes.centered}`} style={{ height: 'auto', width: '90%', }}>
+                      <Discover />
                     </Box>
                   </Box>
                 </Box>
