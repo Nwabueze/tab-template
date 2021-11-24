@@ -4,6 +4,7 @@
  * also note that this project is just to get you started with 
  * your user interface
  * This data contains list of cities
+ * we'd use all-the-cities package for server/database intergration
  */
 
 const cities = [

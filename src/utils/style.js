@@ -163,7 +163,8 @@ const useStyles = makeStyles({
     centered_90: { width: '90%!important', marginLeft: 'auto!important', marginRight: 'auto!important', },
     textNormal: { textTransform: 'none!important', },
     show: {display: 'block!important', },
-    hide: {display: 'none!important'},
+    hide: {display: 'none!important', },
+    maxHeight300: { maxHeight: '300px', },
 });
 
 export { useStyles, colors, };

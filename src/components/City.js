@@ -67,6 +67,10 @@ export default function City() {
     searchCity(inputCity);
     addToSelectedCities(selectedCity);
   }, [inputCity, selectedCity]);
+
+  const handleDisplay = (display) => {
+    setCityDisplay(display);
+  };
   
   const searchCity = (text) => {
     if (!text) {
@@ -94,23 +98,27 @@ export default function City() {
     <Box className={`${classes.lightBackground}`}>
       <Box pl={2} pr={2} pt={1}>
         <StyledInputBase className={`${classes.rad5} ${classes.w100p}`} style={{ backgroundColor: colors.gray[3] }}
-          placeholder="Search…"
+          placeholder="Enter City Name"
           inputProps={{ 'aria-label': 'search' }}
-          onChange={e => {setInputCity(e.target.value); setCityDisplay(true);}}
+          value={inputCity}
+          onChange={e => {setInputCity(e.target.value);handleDisplay(true)}}
         />
       </Box>
-      <Box className={`${classes.centered} ${cityDisplay ? classes.show : classes.hide }`} style={{ width: '200px' }}>
+      {/* the suggestions is expected to hide whenever a city is selected */}
+      <Box className={`${classes.centered} ${classes.maxHeight300} ${cityDisplay ? classes.show : classes.hide }`} style={{ width: '200px' }}>
         {
           suggestedCity.map((item) => (
             <Box 
-              onClick={e => {setSelectedCity(item); setCityDisplay(true)}}
+              onClick={e => {setSelectedCity(item); handleDisplay(false)}}
               p={1} 
               className={`${classes.borderDefault} ${classes.lightBackground} ${classes.pointer}`}>
               {item}
             </Box>
           ))
         }
-        <Paper
+      </Box>
+      <Box className={`${classes.centered}`} style={{ width: '200px' }}>
+      <Paper
           sx={{
             display: 'flex',
             justifyContent: 'center',
