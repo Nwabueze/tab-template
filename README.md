@@ -1,6 +1,16 @@
 # Template For Your Web Application
 
-You can start your next project with this template as your starting point
+You can start your next project with this template as your starting point.\
+This is designed particularly for large and complex React.js web apps or big projects, you can scale it.
+
+## Features
+
+Built with Material-UI.\
+Beautiful and powerful UI for your flagship project.\
+
+## Fronend ONLY
+
+This project focuses on the front end only, hence, you can get up and running immidiately after installation
 
 # Getting Started with Create React App
 
