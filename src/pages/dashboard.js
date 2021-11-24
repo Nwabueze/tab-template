@@ -37,6 +37,7 @@ import { Store } from '../utils/Store';
 import f11 from '../img/f11.jpg';
 import avatar1 from "../img/1.PNG";
 import Discover from '../components/Discover';
+import City from '../components/City';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -238,7 +239,7 @@ export default function PermanentDrawerLeft() {
                       backgroundColor: 'inherit',
                   }
                 }>
-                {
+                { // This is here just to simulate iteration through an actual array
                   '00000000000000000000'.split('').map((item, i) => (
                     <Paper mt={2} mb={2} className={`${classes.lightBackground}`}>
                       <Box pt={2} mt={2} style={{ width: '90%', }} className={classes.centered}>
@@ -288,15 +289,7 @@ export default function PermanentDrawerLeft() {
                 }
               </Box>
               <Box
-                style={
-                  {
-                    height: '900px',
-                    position: 'fixed',
-                    right: '0px',
-                    width: matches ?
-                      `calc(50% - 120px)` : '100%',
-                  }
-                }>
+                style={{ height: '900px', position: 'fixed', right: '0px', width: matches ? `calc(50% - 120px)` : '100%', }}>
                 <Box pl={2} style={{ width: '60%', height: 'calc(100vh - 60px)', }}>
                   <Box p={1}
                     className={`${classes.lightBackground}`}
@@ -329,8 +322,10 @@ export default function PermanentDrawerLeft() {
                   <Box
                     className={`${classes.scroller} ${classes.backgroundSecondary}`}
                     style={{ width: '100%', height: '100%', overflowY: 'auto' }}>
-                    <Box className={`${classes.centered}`} style={{ height: 'auto', width: '90%', }}>
-                      <Discover />
+                    <Box className={`${classes.centered} ${classes.w90p}`} style={{ height: 'auto', }}>
+                      {
+                        rightTab === "direction" ? <City /> : <Discover />
+                      }
                     </Box>
                   </Box>
                 </Box>

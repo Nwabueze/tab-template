@@ -36,7 +36,7 @@ export default function Discover(){
     };
 
     return (
-        <Box pt={2} pb={2} mb={10}>
+        <Box mb={10}>
         {
           biz.map((item) => (
             <Box mt={2} mb={2} className={`${classes.rad1} ${classes.withBorder} ${classes.lightBackground}`}>

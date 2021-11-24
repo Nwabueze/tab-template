@@ -77,9 +77,12 @@ const useStyles = makeStyles({
         '&:hover': { color: 'royalblue', },
         '& *:hover': { color: colors.blue[9]},
     },
+    arrowPinter: {
+        '&:hover': { cursor: 'default' },
+    },
     darkBackground: { backgroundColor: colors.gray[8]},
     lightBackground: { backgroundColor: `${colors.gray[0]}!important`},
-    centered: { marginLeft: 'auto', marginRight: 'auto', },
+    centered: { marginLeft: 'auto!important', marginRight: 'auto!important', },
     scroller: {
         '&::-webkit-scrollbar': {
           width: '12px',
@@ -153,10 +156,14 @@ const useStyles = makeStyles({
     bott3: { position: 'relative', bottom: '3px', },
     bott4: { position: 'relative', bottom: '4px', },
     bott5: { position: 'relative', bottom: '5px', },
-    flexBox: { display: 'flex', flexDirection: 'row', flexGrow: 1, flexWrap: 'wrap' },
+    w100p: { width: '100%', },
+    w90p: { width: '90%', },
+    flexBox: { display: 'flex', flexDirection: 'row', flexGrow: 1, flexWrap: 'wrap', },
     grow: { flexGrow: 1, },
-    centered_90: { width: '90%!important', marginLeft: 'auto!important', marginRight: 'auto!important' },
+    centered_90: { width: '90%!important', marginLeft: 'auto!important', marginRight: 'auto!important', },
     textNormal: { textTransform: 'none!important', },
+    show: {display: 'block!important', },
+    hide: {display: 'none!important'},
 });
 
 export { useStyles, colors, };

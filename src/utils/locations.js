@@ -17,4 +17,14 @@ const cities = [
     'portharcourt nigeria',
     'onitcha nigeria',
     'abuja nigeria',
+    'calabar nigeria',
+    'abuja nigeria',
+    'asaba nigeria',
+    'kaduna nigeria',
+    'lafia nigeria',
+    'markurdi nigeria',
+    'osun nigeria',
+    'osogbo nigeria',
 ];
+
+export { cities };
