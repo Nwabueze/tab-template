@@ -22,7 +22,7 @@ const colors = {
         'mediumseagreen', 'seagreen', 'olive', 'darkolivegreen', 'olivedrab',
     ],
     cyan: [
-        'lightcyan', 'cyan', 'aqua', 'aquamarine', 'mediumaquamarine', 'paleturquoise', 'turquoise',
+        '#e0ffff', 'cyan', 'aqua', 'aquamarine', 'mediumaquamarine', 'paleturquoise', 'turquoise',
         'mediumturquoise', 'darkturquoise', 'lightgreen', 'cadetblue', 'darkcyan', 'teal',
     ],
     blue: [
@@ -168,3 +168,6 @@ const useStyles = makeStyles({
 });
 
 export { useStyles, colors, };
+
+
+

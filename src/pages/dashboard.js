@@ -42,14 +42,16 @@ import City from '../components/City';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  color: colors.gray[colors.gray.length-1],
+  borderRadius: '10px',
+  border: '1px solid gainsboro',
+  backgroundColor: alpha(colors.gray[10], 0.15),
   '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
+    backgroundColor: alpha(colors.cyan[0], 0.25),
   },
   marginRight: theme.spacing(2),
   marginLeft: 0,
-  width: '100%',
+  width: '100%', 
   [theme.breakpoints.up('sm')]: {
     marginLeft: theme.spacing(3),
     width: 'auto',
@@ -92,9 +94,19 @@ export default function PermanentDrawerLeft() {
   const classes = useStyles();
   const [darkmodeValue, setDarkmode] = React.useState(false);
   const [rightTab, setRightTab] = useState('direction');
+  const [navHeight, setHeight] = useState('550px');
+  const [rightNavHeight, setRightSideNav] = useState('500px');
+
   React.useEffect(() => {
     setDarkmode(darkMode);
+    setHeight(() => {
+      return document.querySelector('.main-nav').offsetHeight;
+    })
+    setRightSideNav(() => {
+      return document.querySelector('.right-tab-icon-box').offsetHeight;
+    })
   }, [darkMode])
+
   const theme = createTheme({
     palette: {
       mode: darkmodeValue ? 'light' : 'light',
@@ -153,7 +165,7 @@ export default function PermanentDrawerLeft() {
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ width: "100%" }} className={`${classes.backgroundDefault}`}>
-        <AppBar className={classes.navBarLight} position="fixed" sx={{ width: `100%`, }}>
+        <AppBar className={`${classes.navBarLight} main-nav`} position="fixed" sx={{ width: `100%`, }}>
           <Toolbar>
             <Search>
               <SearchIconWrapper>
@@ -162,6 +174,7 @@ export default function PermanentDrawerLeft() {
               <StyledInputBase
                 placeholder="Search…"
                 inputProps={{ 'aria-label': 'search' }}
+                style={{"cursor": 'text'}}
               />
             </Search>
             <Box sx={{ flexGrow: 1 }} />
@@ -288,11 +301,11 @@ export default function PermanentDrawerLeft() {
                   ))
                 }
               </Box>
-              <Box
-                style={{ height: '900px', position: 'fixed', right: '0px', width: matches ? `calc(50% - 120px)` : '100%', }}>
-                <Box pl={2} style={{ width: '60%', height: 'calc(100vh - 60px)', }}>
+              <Box mt={2}
+                style={{ height: `calc(100vh - ${navHeight+20}px)`, position: 'fixed', right: '0px', width: matches ? `calc(50% - 120px)` : '100%', }}>
+                <Box pl={2} style={{ width: '60%', height: '100%', }}>
                   <Box p={1}
-                    className={`${classes.lightBackground}`}
+                    className={`${classes.lightBackground} right-tab-icon-box`}
                     style={{ display: 'flex', flexDirection: 'row', gap: 3, position: 'sticky', }}>
                       {/** Start the right tab nav menu  boxes*/}
                     <Box p={1} 
@@ -321,7 +334,7 @@ export default function PermanentDrawerLeft() {
                   <Divider />
                   <Box
                     className={`${classes.scroller} ${classes.backgroundSecondary}`}
-                    style={{ width: '100%', height: '100%', overflowY: 'auto' }}>
+                    style={{ width: '100%', height: `calc(100% - ${rightNavHeight}px)`, overflowY: 'auto' }}>
                     <Box className={`${classes.centered} ${classes.w90p}`} style={{ height: 'auto', }}>
                       {
                         rightTab === "direction" ? <City /> : <Discover />

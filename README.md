@@ -6,7 +6,7 @@ This is designed particularly for large and complex React.js web apps or big pro
 ## Features
 
 Built with Material-UI.\
-Beautiful and powerful UI for your flagship project.\
+Beautiful and powerful UI for your flagship project
 
 ## Fronend ONLY
 

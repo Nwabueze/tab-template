@@ -13,6 +13,7 @@ import a5 from '../img/a5.jpg';
 import a6 from '../img/a6.PNG';
 import a7 from '../img/a7.jpg';
 import { useStyles,  } from '../utils/style';
+import Core from '../utils/Core.module.css';
 
 const biz = [
     {id: '112', name: 'Obeta', country: 'Nigeria', location: 'Lagos', address: '12 oas street eija Lagos', cover: a1, },
@@ -36,7 +37,7 @@ export default function Discover(){
     };
 
     return (
-        <Box mb={10}>
+        <Box mb={2}>
         {
           biz.map((item) => (
             <Box mt={2} mb={2} className={`${classes.rad1} ${classes.withBorder} ${classes.lightBackground}`}>
@@ -86,7 +87,7 @@ export default function Discover(){
                   <Box p={2} className={`${classes.pointer} ${classes.hovBlue}`}>
                     <MoreVertIcon className={`${classes.font_24}`} />
                     <br />
-                    <span className={`${classes.font_12} ${classes.bott5}`}>More</span>
+                    <span className={`${classes.font_12} ${classes.bott5} ${Core.error}`}>More</span>
                   </Box>
                 </Box>
               </Box>
