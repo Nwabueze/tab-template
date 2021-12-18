@@ -128,6 +128,7 @@ export default function City() {
             m: 0,
           }}
           component="ul"
+          style={{boxShadow:"unset"}}
         >
         {
           selectedCities.length < 1 ? null : selectedCities.map((item, index) => (

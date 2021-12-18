@@ -212,7 +212,7 @@ export default function PermanentDrawerLeft() {
                     <ListItem pt={3} pb={3} button key={index}
                       selected={sideListSelectedIndex === index}
                       onClick={(event) => handleSideListItemClick(event, index)}
-                      className={ `${classes.rad5} ${classes.centered_90}` }
+                      className={ `${classes.rad5} ${classes.centered_90} ${sideListSelectedIndex === index ? classes.borderPrimary : ''}` }
                     >
                       <ListItemIcon>
                         {index % 2 === 0 ? 
