@@ -4,6 +4,9 @@ import { useContext, useState, } from 'react';
 import { styled, alpha, createTheme, ThemeProvider } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 //import CssBaseline from '@mui/material/CssBaseline';
+
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
@@ -96,6 +99,7 @@ export default function PermanentDrawerLeft() {
   const [rightTab, setRightTab] = useState('direction');
   const [navHeight, setHeight] = useState('550px');
   const [rightNavHeight, setRightSideNav] = useState('500px');
+  const [navMobileMenuDisplay, setNavMobileMenuDisplay] = useState(false);
 
   React.useEffect(() => {
     setDarkmode(darkMode);
@@ -178,7 +182,8 @@ export default function PermanentDrawerLeft() {
               />
             </Search>
             <Box sx={{ flexGrow: 1 }} />
-            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+            {/** Show all for now */}
+            <Box sx={{ display: { xs: 'flex', md: 'flex' } }}>
               <Stack direction="row" spacing={2} justifyContent="center" alignItems="center">
               {
                 navButtons.map((item, index) => (
@@ -192,11 +197,29 @@ export default function PermanentDrawerLeft() {
               }
               </Stack>
             </Box>
-            <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+            {/* Hide all for now */}
+            <Box sx={{ display: { xs: 'none', md: 'none' } }}>
               <ToggleButton value="more" selected={selectedNavButton === "more"}
-                onClick={() => handleNavButtonClick('more')}>
+                onClick={() => {handleNavButtonClick('more'); setNavMobileMenuDisplay(true)}}>
                 <MoreIcon color="primary" />
               </ToggleButton>
+            </Box>
+            <Box style={{width:'0px', height:'0px', zIndex:10000000}}>
+              <Stack direction="column" style={{display: navMobileMenuDisplay ? 'block' : 'none', width:'100px', height: 'auto', 
+                            position: 'relative', top:'15px', right:'100px', 
+                            backgroundColor:'#fff', border: '1px solid gainsboro',
+                            }}>
+                {
+                  navButtons.map((item, index) => (
+                    <ToggleButton className={classes.navbtn} value={item.id} selected={selectedNavButton === item.id}
+                      onClick={() => {item.handler(); setNavMobileMenuDisplay(false)}}>
+                      <Badge badgeContent={item.badgeContent} color="error">
+                        {item.icon}
+                      </Badge>
+                    </ToggleButton>
+                  ))
+                }
+              </Stack>
             </Box>
           </Toolbar>
         </AppBar>
@@ -346,6 +369,16 @@ export default function PermanentDrawerLeft() {
             </Box>
           </Box>
         </Box>
+        <Box sx={{ display: { xs: 'block', md: 'none' } }}>
+        <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0,  }} elevation={3}>
+        <BottomNavigation>
+          <BottomNavigationAction icon={<BusinessCenterIcon />} />
+          <BottomNavigationAction icon={<BusinessCenterIcon />} />
+          <BottomNavigationAction icon={<BusinessCenterIcon />} />
+        </BottomNavigation>
+        </Paper>
+        </Box>
+        
       </Box>
     </ThemeProvider>
   );
